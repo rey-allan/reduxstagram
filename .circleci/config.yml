@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/reduxstagram
+    docker:
+      - image: circleci/node:6-browsers
+    steps:
+      - add-ssh-keys:
+          fingerprints:
+            - "37:f4:3a:2e:5d:e6:9d:2e:39:d3:d3:10:c0:e7:57:b4"
+      - checkout
+      - restore_cache:
+          key: reduxstagram-{{ .Branch }}-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: reduxstagram-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - "node_modules"
+      - run: 
+          name: Running Unit Tests
+          command: npm run test
+      - deploy:
+          name: Deploying To Github Pages
+          command: ./scripts/deploy-to-gh-pages

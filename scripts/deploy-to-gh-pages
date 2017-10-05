@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Based on: https://github.com/eldarlabs/ghpages-deploy-script/blob/master/scripts/deploy-ghpages.sh
+
+# Abort the script if there is a non-zero error
+set -e
+
+if [ "${CIRCLE_BRANCH}" == "master" ]; then
+  # Compile the project
+  npm run build
+
+  # Make a directory to create the gp-pages branch in
+  mkdir gh-pages-branch
+  cd gh-pages-branch
+  
+  # Now lets setup a new repo so we can update the gh-pages branch
+  git config --global user.email "$GITHUB_EMAIL" > /dev/null 2>&1
+  git config --global user.name "$GITHUB_NAME" > /dev/null 2>&1
+  git init
+  git remote add --fetch origin "${CIRCLE_REPOSITORY_URL}"
+  
+  # Switch into the gh-pages branch
+  if [ git rev-parse --verify origin/gh-pages > /dev/null 2>&1 ]; then
+    git checkout gh-pages
+    # If it exists, delete any old site as we are going to replace it
+    git rm -rf .
+  else
+    git checkout --orphan gh-pages
+  fi
+
+  # Copy over the build/ folder
+  cp -a "../build/." .
+  
+  # Copy over the CircleCI configuration specifically for Github Pages
+  mkdir .circleci
+  cp -a ../.circleci/gh-pages.config.yml ./.circleci/config.yml
+
+  # Copy over the .gitignore file for completeness
+  cp -a ../.gitignore .
+  
+  # Stage the app contents
+  git add -A
+  # Now commit
+  git commit --allow-empty -m "Deploy changes ${CIRCLE_SHA1}"
+  # And push! But send any output to /dev/null to hide anything sensitive
+  git push --force --quiet origin gh-pages > /dev/null 2>&1
+
+  # Go back to where we started and remove the gh-pages git repo we made
+  cd ..
+  rm -rf gh-pages-branch
+  
+  echo "Finished Deployment!"
+fi

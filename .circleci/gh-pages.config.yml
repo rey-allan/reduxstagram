@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/reduxstagram
+    docker:
+      - image: circleci/node:6-browsers
+    branches:
+      ignore:
+        - gh-pages
