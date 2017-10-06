@@ -4,18 +4,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "history": "^4.7.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14"
   },
   "scripts": {
+    "clean": "rm -rf build/",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy" : "npm run build && gh-pages -d build -m 'Deploy from workspace'"
+    "deploy": "npm run build && gh-pages -d build -m 'Deploy from workspace'",
+    "release": "npm run build && export CI=true; npm run test"
   },
   "devDependencies": {
-    "gh-pages": "^1.0.0"
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
+    "gh-pages": "^1.0.0",
+    "jest-enzyme": "^4.0.0",
+    "react-test-renderer": "^16.0.0"
   }
 }

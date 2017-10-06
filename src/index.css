@@ -1,5 +1,13 @@
-body {
-  margin: 0;
-  padding: 0;
+html {
   font-family: sans-serif;
+  font-size: 10px;
+}
+
+body {
+  background: #fafafa;
+}
+
+p {
+  font-size: 1.6rem;
+  line-height: 1.5;
 }
