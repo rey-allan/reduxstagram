@@ -1,27 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createHashHistory from 'history/createHashHistory';
 
-import { Router } from 'react-router';
+import { Provider } from 'react-redux';
+
 import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux'
 
-import App from './components/app/App';
+import AppContainer from './components/app/AppContainer';
 import Grid from './components/grid/Grid';
 import Single from './components/single/Single';
+
+import { history, store} from './redux/store';
 
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
 
-const history = createHashHistory();
-
 ReactDOM.render(
-  <Router history={history}>
-    <App>
-      <Route exact path="/" component={Grid} />
-      <Route path="/post/:postId" component={Single}/>
-    </App>
-  </Router>,
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <AppContainer>
+        <Route exact path="/" component={Grid} />
+        <Route path="/posts/:id" component={Single} />
+      </AppContainer>
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
