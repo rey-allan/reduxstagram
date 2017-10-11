@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 
-import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux'
 
 import AppContainer from './components/app/AppContainer';
 import Grid from './components/grid/Grid';
+import RouteContainer from './components/router/RouteContainer';
 import Single from './components/single/Single';
 
 import { history, store} from './redux/store';
@@ -20,8 +20,8 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <AppContainer>
-        <Route exact path="/" component={Grid} />
-        <Route path="/posts/:id" component={Single} />
+        <RouteContainer exact path="/" component={Grid} />
+        <RouteContainer path="/posts/:id" component={Single} />
       </AppContainer>
     </ConnectedRouter>
   </Provider>,
