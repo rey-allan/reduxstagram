@@ -19,18 +19,16 @@ beforeAll(() => {
     display_src: 'seattle.jpg'
   };
 
-  comments = {
-    '1': [
-      {
-        'text': 'So cool!',
-        'user': 'fan123'
-      },
-      {
-        'text': 'Nice shot!',
-        'user': 'friendlyfriend'
-      }
-    ]
-  };
+  comments = [
+    {
+      'text': 'So cool!',
+      'user': 'fan123'
+    },
+    {
+      'text': 'Nice shot!',
+      'user': 'friendlyfriend'
+    }
+  ];
 
   likePost = jest.fn();
 });
@@ -110,7 +108,7 @@ it('renders a RaisedButton for making a comment', () => {
   const wrapper = shallow(<Post post={post} comments={comments} postIndex={0} likePost={likePost} />);
   const commentButton = wrapper.find('Card').find('CardActions').find('RaisedButton').at(1);
 
-  expect(commentButton).toHaveProp('label', comments[post.code].length.toString());
+  expect(commentButton).toHaveProp('label', comments.length.toString());
   expect(commentButton).toHaveProp('icon');
 });
 
@@ -124,7 +122,7 @@ it('links the RaisedButton for comments to the single view', () => {
 });
 
 it('uses "0" as the RaisedButton label when no comments are present', () => {
-  const wrapper = shallow(<Post post={post} comments={{}} postIndex={0} likePost={likePost} />);
+  const wrapper = shallow(<Post post={post} comments={[]} postIndex={0} likePost={likePost} />);
   const commentButton = wrapper.find('Card').find('CardActions').find('RaisedButton').at(1);
 
   expect(commentButton).toHaveProp('label', '0');

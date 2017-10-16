@@ -11,7 +11,7 @@ const Grid = ({ posts, comments, likePost }) => (
     {
       posts.map((post, index) => (
         <GridTile key={post.code}>
-          <Post post={post} comments={comments} postIndex={index} likePost={likePost} />
+          <Post post={post} comments={comments[post.code]} postIndex={index} likePost={likePost} />
         </GridTile>
       ))
     }

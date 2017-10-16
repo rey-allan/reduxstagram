@@ -28,7 +28,14 @@ beforeAll(() => {
     }
   ];
 
-  comments = {};
+  comments = {
+    '1': [
+      {
+        text: 'So cool!',
+        'user': 'fan123'
+      }
+    ]
+  };
 
   likePost = jest.fn();
 });
@@ -75,7 +82,7 @@ it('renders a Post, with appropriate props, for each GridTile', () => {
 
     expect(post).toBePresent();
     expect(post).toHaveProp('post', posts[index]);
-    expect(post).toHaveProp('comments', comments);
+    expect(post).toHaveProp('comments', comments[posts[index].code]);
     expect(post).toHaveProp('postIndex', index);
     expect(post).toHaveProp('likePost', likePost);
   });

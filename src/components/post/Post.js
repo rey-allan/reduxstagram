@@ -25,7 +25,7 @@ const Post = ({ post, comments, postIndex, likePost }) => (
       />
       <Link to={`/posts/${post.code}`}>
         <RaisedButton
-          label={comments[post.code] ? comments[post.code].length.toString() : "0"}
+          label={comments ? comments.length.toString() : "0"}
           icon={<FontIcon className="fa fa-comments"
           color="#125688" />}
         />
