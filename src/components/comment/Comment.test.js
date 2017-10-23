@@ -5,12 +5,18 @@ import Comment from './Comment';
 import { mount, shallow } from 'enzyme';
 
 let comment;
+let postId;
+let index;
+let removeComment;
 
 beforeAll(() => {
   comment = {
     text: 'So cool!',
     user: 'fan123'
   };
+  postId = '1';
+  index = 0;
+  removeComment = jest.fn();
 });
 
 it('renders without crashing', () => {
@@ -18,13 +24,15 @@ it('renders without crashing', () => {
   // to be rendered inside a theme provider
   mount(
     <MuiThemeProvider>
-      <Comment comment={comment} />
+      <Comment comment={comment} index={index} postId={postId} removeComment={removeComment} />
     </MuiThemeProvider>
   );
 });
 
 it('renders a div with an icon and a paragraph', () => {
-  const wrapper = shallow(<Comment comment={comment} />);
+  const wrapper = shallow(
+    <Comment comment={comment} index={index} postId={postId} removeComment={removeComment} />
+  );
   const div = wrapper.find('div');
 
   expect(div).toBePresent();
@@ -33,7 +41,9 @@ it('renders a div with an icon and a paragraph', () => {
 });
 
 it('renders the user and the text correctly', () => {
-  const wrapper = shallow(<Comment comment={comment} />);
+  const wrapper = shallow(
+    <Comment comment={comment} index={index} postId={postId} removeComment={removeComment} />
+  );
   const div = wrapper.find('div');
   const p = div.find('p');
 
@@ -43,11 +53,23 @@ it('renders the user and the text correctly', () => {
 });
 
 it('renders the IconButton as a font delete icon', () => {
-  const wrapper = shallow(<Comment comment={comment} />);
+  const wrapper = shallow(
+    <Comment comment={comment} index={index} postId={postId} removeComment={removeComment} />
+  );
   const div = wrapper.find('div');
   const button = div.find('IconButton');
   const fontIcon = button.find('FontIcon');
 
   expect(fontIcon).toBePresent();
   expect(fontIcon).toHaveProp('className', 'fa fa-times delete-icon');
+});
+
+it('calls the removeComment function when clicking the delete button', () => {
+  const wrapper = shallow(
+    <Comment comment={comment} index={index} postId={postId} removeComment={removeComment} />
+  );
+  const button = wrapper.find('div').find('IconButton');
+
+  button.simulate('click');
+  expect(removeComment).toHaveBeenCalledWith(postId, index);
 });

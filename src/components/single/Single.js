@@ -6,14 +6,14 @@ import Post from '../post/Post';
 
 import './Single.css';
 
-const Single = ({ posts, comments, match: {params: {id}}, likePost }) => {
+const Single = ({ posts, comments, match: {params: {id}}, likePost, removeComment }) => {
   const post = retrievePostByCode(posts, id);
   const index = findPostIndex(posts, post);
 
   return (
     <div className="single">
       <Post post={post} comments={comments[post.code]} postIndex={index} likePost={likePost} />
-      <CommentList comments={comments[post.code]} />
+      <CommentList comments={comments[post.code]} postId={post.code} removeComment={removeComment} />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { Router } from 'react-router';
 let posts;
 let comments;
 let likePost;
+let removeComment;
 let match;
 let selectedPost;
 
@@ -40,6 +41,7 @@ beforeAll(() => {
   };
 
   likePost = jest.fn();
+  removeComment = jest.fn();
 
   match = {
     params: {
@@ -60,14 +62,28 @@ it('renders without crashing', () => {
   mount(
     <MuiThemeProvider>
       <Router history={history}>
-        <Single posts={posts} comments={comments} match={match} likePost={likePost} />
+        <Single
+          posts={posts}
+          comments={comments}
+          match={match}
+          likePost={likePost}
+          removeComment={removeComment}
+        />
       </Router>
     </MuiThemeProvider>
   );
 });
 
 it('renders a Post with appropriate props', () => {
-  const wrapper = shallow(<Single posts={posts} comments={comments} match={match} likePost={likePost} />);
+  const wrapper = shallow(
+    <Single
+      posts={posts}
+      comments={comments}
+      match={match}
+      likePost={likePost}
+      removeComment={removeComment}
+    />
+  );
   const post = wrapper.find('Post');
 
   expect(post).toBePresent();
@@ -75,4 +91,22 @@ it('renders a Post with appropriate props', () => {
   expect(post).toHaveProp('comments', comments[selectedPost.code]);
   expect(post).toHaveProp('postIndex', selectedPost.index);
   expect(post).toHaveProp('likePost');
+});
+
+it('renders a CommentList with appropriate props', () => {
+  const wrapper = shallow(
+    <Single
+      posts={posts}
+      comments={comments}
+      match={match}
+      likePost={likePost}
+      removeComment={removeComment}
+    />
+  );
+  const commentList = wrapper.find('CommentList');
+
+  expect(commentList).toBePresent();
+  expect(commentList).toHaveProp('comments', comments[selectedPost.code]);
+  expect(commentList).toHaveProp('postId', selectedPost.code);
+  expect(commentList).toHaveProp('removeComment');
 });
