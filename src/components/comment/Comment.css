@@ -1,0 +1,16 @@
+.comment {
+  margin: 0 !important;
+  padding-right: 2rem !important;
+  padding-top: 0.8rem !important;
+}
+
+.delete-icon {
+  font-size: 1rem !important;
+}
+
+.delete-button {
+  float: right !important;
+  height: 0 !important;
+  opacity: 0.6 !important;
+  width: 0 !important;
+}

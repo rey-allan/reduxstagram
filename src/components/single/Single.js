@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import CommentList from '../comment/CommentList';
 import Post from '../post/Post';
 
 import './Single.css';
@@ -11,6 +13,7 @@ const Single = ({ posts, comments, match: {params: {id}}, likePost }) => {
   return (
     <div className="single">
       <Post post={post} comments={comments[post.code]} postIndex={index} likePost={likePost} />
+      <CommentList comments={comments[post.code]} />
     </div>
   );
 };
