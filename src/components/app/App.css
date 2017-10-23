@@ -11,12 +11,12 @@
 
 h1 {
   font-family: 'billabong', 'billabongregular';
-  font-size: 13rem;
+  font-size: 5rem;
   font-weight: 100;
   letter-spacing: -1px;
   margin: 2rem 0;
   text-align: center;
-  text-shadow: 0px 4px 0 rgba(18, 86, 136, 0.11);
+  text-shadow: 0px 0.3rem 0 rgba(18, 86, 136, 0.11);
 }
 
 h1 a {
@@ -26,4 +26,29 @@ h1 a {
 
 h1 a:focus {
   outline: 0;
+}
+
+/* Responsive design (mobile-first) */
+/* Taken from: http://tinyurl.com/yb3nekau */
+/* Also see: http://codeitdown.com/responsive-font-size-css/ */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 8rem;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  h1 {
+    font-size: 9rem;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 10rem;
+  }
 }

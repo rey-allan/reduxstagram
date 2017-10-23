@@ -1,4 +1,25 @@
 .single {
-  margin: auto;
-  width: 30%;
+  margin: auto !important;
+  width: 100% !important;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .single {
+    width: 75% !important;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .single {
+    width: 40% !important;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .single {
+    width: 25% !important;
+  }
 }

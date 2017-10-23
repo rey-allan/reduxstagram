@@ -6,8 +6,8 @@ import { GridList, GridTile } from 'material-ui/GridList';
 
 import './Grid.css'
 
-const Grid = ({ posts, comments, likePost }) => (
-  <GridList cols={3} cellHeight="auto" className="grid">
+const Grid = ({ posts, comments, columns, likePost }) => (
+  <GridList cols={columns || 1} cellHeight="auto" className="grid">
     {
       posts.map((post, index) => (
         <GridTile key={post.code}>
@@ -21,6 +21,7 @@ const Grid = ({ posts, comments, likePost }) => (
 Grid.propTypes = {
   posts: PropTypes.array.isRequired,
   comments: PropTypes.object.isRequired,
+  columns: PropTypes.number,
   likePost: PropTypes.func.isRequired
 };
 

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux'
 
 import AppContainer from './components/app/AppContainer';
-import Grid from './components/grid/Grid';
+import ResponsiveGrid from './components/grid/ResponsiveGrid';
 import RouteContainer from './components/router/RouteContainer';
 import Single from './components/single/Single';
 
@@ -20,7 +20,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <AppContainer>
-        <RouteContainer exact path="/" component={Grid} />
+        <RouteContainer exact path="/" component={ResponsiveGrid} />
         <RouteContainer path="/posts/:id" component={Single} />
       </AppContainer>
     </ConnectedRouter>

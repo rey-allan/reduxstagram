@@ -1,13 +1,8 @@
 html {
   font-family: 'Roboto', sans-serif;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 body {
   background: #fafafa;
-}
-
-p {
-  font-size: 1.6rem;
-  line-height: 1.5;
 }

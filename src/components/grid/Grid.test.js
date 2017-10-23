@@ -56,21 +56,27 @@ it('renders without crashing', () => {
   );
 });
 
-it('renders a GridList with 3 columns', () => {
+it('renders a GridList with 1 column by default', () => {
   const wrapper = shallow(<Grid posts={posts} comments={comments} likePost={likePost} />);
-  
+
+  expect(wrapper.find('GridList')).toHaveProp('cols', 1);
+});
+
+it('renders a GridList with 3 columns when passed as props', () => {
+  const wrapper = shallow(<Grid posts={posts} comments={comments} likePost={likePost} columns={3}/>);
+
   expect(wrapper.find('GridList')).toHaveProp('cols', 3);
 });
 
 it('renders a GridList with auto cell height', () => {
   const wrapper = shallow(<Grid posts={posts} comments={comments} likePost={likePost} />);
-  
+
   expect(wrapper.find('GridList')).toHaveProp('cellHeight', 'auto');
 });
 
 it('renders as many GridTile(s) as posts', () => {
   const wrapper = shallow(<Grid posts={posts} comments={comments} likePost={likePost} />);
-  
+
   expect(wrapper.find('GridTile').length).toEqual(posts.length);
 });
 
