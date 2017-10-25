@@ -129,3 +129,174 @@ it('throws error when removing a comment with invalid index', () => {
     comments(state, action);
   }).toThrowError('Invalid comment index: 999');
 });
+
+it('adds a comment to a post when action is ADD_COMMENT', () => {
+  const state = {
+    myPost: [
+      {
+        text: 'So cool!',
+        user: 'fan123'
+      },
+      {
+        text: 'This is awesome!',
+        user: 'bestfriend'
+      }
+    ],
+    otherPost: [
+      {
+        text: 'I should not get other posts here!',
+        user: 'invincible'
+      }
+    ]
+  };
+  const action = {
+    type: types.ADD_COMMENT,
+    postId: 'myPost',
+    author: 'mom',
+    comment: 'Such a cool picture son!'
+  };
+
+  const returnedState = comments(state, action);
+  const expectedState = {
+    myPost: [
+      {
+        text: 'So cool!',
+        user: 'fan123'
+      },
+      {
+        text: 'This is awesome!',
+        user: 'bestfriend'
+      },
+      {
+        text: 'Such a cool picture son!',
+        user: 'mom'
+      }
+    ],
+    otherPost: [
+      {
+        text: 'I should not get other posts here!',
+        user: 'invincible'
+      }
+    ]
+  };
+
+  expect(returnedState).toMatchObject(expectedState);
+});
+
+it('adds a comment to a post with empty comments when action is ADD_COMMENT', () => {
+  const state = {
+    myPost: [
+      {
+        text: 'So cool!',
+        user: 'fan123'
+      },
+      {
+        text: 'This is awesome!',
+        user: 'bestfriend'
+      }
+    ],
+    otherPost: [
+      {
+        text: 'I should not get other posts here!',
+        user: 'invincible'
+      }
+    ]
+  };
+  const action = {
+    type: types.ADD_COMMENT,
+    postId: 'thirdPost',
+    author: 'mom',
+    comment: 'Such a cool picture son!'
+  };
+
+  const returnedState = comments(state, action);
+  const expectedState = {
+    myPost: [
+      {
+        text: 'So cool!',
+        user: 'fan123'
+      },
+      {
+        text: 'This is awesome!',
+        user: 'bestfriend'
+      }
+    ],
+    otherPost: [
+      {
+        text: 'I should not get other posts here!',
+        user: 'invincible'
+      }
+    ],
+    thirdPost: [
+      {
+        text: 'Such a cool picture son!',
+        user: 'mom'
+      }
+    ]
+  };
+
+  expect(returnedState).toMatchObject(expectedState);
+});
+
+it('throws error when adding a comment with undefined state', () => {
+  const action = {
+    type: types.ADD_COMMENT,
+    postId: 'myPost',
+    author: 'mom',
+    comment: 'Such a cool picture son!'
+  };
+
+  expect(() => {
+    comments(undefined, action);
+  }).toThrowError('state cannot be empty or undefined');
+});
+
+it('throws error when adding a comment with no author', () => {
+  const state = {
+    myPost: [
+      {
+        text: 'So cool!',
+        user: 'fan123'
+      },
+      {
+        text: 'This is awesome!',
+        user: 'bestfriend'
+      }
+    ]
+  };
+  const action = {
+    type: types.ADD_COMMENT,
+    postId: 'otherPostId',
+    author: undefined,
+    comment: 'Such a cool picture son!'
+  };
+
+  expect(() => {
+    comments(state, action);
+  }).toThrowError('author cannot be empty or undefined');
+});
+
+it('throws error when adding a comment with no comment', () => {
+  const state = {
+    myPost: [
+      {
+        text: 'So cool!',
+        user: 'fan123'
+      },
+      {
+        text: 'This is awesome!',
+        user: 'bestfriend'
+      }
+    ]
+  };
+  const action = {
+    type: types.ADD_COMMENT,
+    postId: 'otherPostId',
+    author: 'mom',
+    comment: ''
+  };
+
+  expect(() => {
+    comments(state, action);
+  }).toThrowError('comment cannot be empty or undefined');
+});

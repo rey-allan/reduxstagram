@@ -10,6 +10,7 @@ let posts;
 let comments;
 let likePost;
 let removeComment;
+let addComment;
 let match;
 let selectedPost;
 
@@ -42,6 +43,7 @@ beforeAll(() => {
 
   likePost = jest.fn();
   removeComment = jest.fn();
+  addComment = jest.fn();
 
   match = {
     params: {
@@ -68,6 +70,7 @@ it('renders without crashing', () => {
           match={match}
           likePost={likePost}
           removeComment={removeComment}
+          addComment={addComment}
         />
       </Router>
     </MuiThemeProvider>
@@ -82,6 +85,7 @@ it('renders a Post with appropriate props', () => {
       match={match}
       likePost={likePost}
       removeComment={removeComment}
+      addComment={addComment}
     />
   );
   const post = wrapper.find('Post');
@@ -101,6 +105,7 @@ it('renders a CommentList with appropriate props', () => {
       match={match}
       likePost={likePost}
       removeComment={removeComment}
+      addComment={addComment}
     />
   );
   const commentList = wrapper.find('CommentList');
@@ -109,4 +114,22 @@ it('renders a CommentList with appropriate props', () => {
   expect(commentList).toHaveProp('comments', comments[selectedPost.code]);
   expect(commentList).toHaveProp('postId', selectedPost.code);
   expect(commentList).toHaveProp('removeComment');
+});
+
+it('renders a CommentForm with appropriate props', () => {
+  const wrapper = shallow(
+    <Single
+      posts={posts}
+      comments={comments}
+      match={match}
+      likePost={likePost}
+      removeComment={removeComment}
+      addComment={addComment}
+    />
+  );
+  const commentForm = wrapper.find('CommentForm');
+
+  expect(commentForm).toBePresent();
+  expect(commentForm).toHaveProp('postId', selectedPost.code);
+  expect(commentForm).toHaveProp('addComment');
 });
