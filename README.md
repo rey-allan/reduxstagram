@@ -1,5 +1,7 @@
 # Reduxstagram
 
+[![CircleCI](https://circleci.com/gh/rey-allan/reduxstagram/tree/master.svg?style=svg)](https://circleci.com/gh/rey-allan/reduxstagram/tree/master)
+
 An Instagram clone made with React and Redux as part of Wes Bos's awesome [Learn Redux](https://learnredux.com/) course.
 
 This project is a complete working implementation. Besides the code being completely different, there are other several key differences:
